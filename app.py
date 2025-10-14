@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect
 import os; print("DB path:", os.path.abspath("urls.db"))
 import sqlite3
+import string, random
 
 app = Flask(__name__)
 
@@ -28,13 +29,12 @@ def shorten():
     )
     """)
 
-    # insert row
-    c.execute("INSERT INTO urls (long_url) VALUES (?)", (long_url,))
-    short_id = c.lastrowid
-    short_code = str(short_id)
+    # generate random 6-character short code
+    chars = string.ascii_letters + string.digits
+    short_code = ''.join(random.choices(chars, k=6))
 
-    # update short_code
-    c.execute("UPDATE urls SET short_code = ? WHERE id = ?", (short_code, short_id))
+    # insert mapping into DB
+    c.execute("INSERT INTO urls (short_code, long_url) VALUES (?, ?)", (short_code, long_url))
     conn.commit()
     conn.close()
 
@@ -53,4 +53,4 @@ def redirect_to_url(short_code):
     return {"error": "URL not found"}, 404
 
 if __name__ == "__main__":
-    app.run(debug=True)     # run the main
+    app.run(debug=True)     # run the main 2
