@@ -29,6 +29,13 @@ def shorten():
     )
     """)
 
+    # check if this URL already exists
+    c.execute("SELECT short_code FROM urls WHERE long_url = ?", (long_url,))
+    existing = c.fetchone()
+    if existing:
+        conn.close()
+        return {"short_url": f"http://127.0.0.1:5000/{existing['short_code']}"}
+
     # generate random 6-character short code
     chars = string.ascii_letters + string.digits
     short_code = ''.join(random.choices(chars, k=6))
@@ -39,6 +46,7 @@ def shorten():
     conn.close()
 
     return {"short_url": f"http://127.0.0.1:5000/{short_code}"}
+
 
 @app.route('/<short_code>')
 def redirect_to_url(short_code):
