@@ -107,4 +107,4 @@ def stats():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)     # run the main 2
+    app.run(debug=True)     # run the main
