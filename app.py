@@ -21,7 +21,7 @@ def shorten():
     long_url = data.get('long_url')
     custom_code = data.get('custom_code')  # optional custom short code
 
-    # ✅ Validate URL
+    # validate URL
     from urllib.parse import urlparse
     parsed = urlparse(long_url)
     if not (parsed.scheme and parsed.netloc):
