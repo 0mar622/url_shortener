@@ -25,7 +25,8 @@ def shorten():
     CREATE TABLE IF NOT EXISTS urls (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         short_code TEXT UNIQUE,
-        long_url TEXT NOT NULL
+        long_url TEXT NOT NULL,
+        clicks INTEGER DEFAULT 0
     )
     """)
 
@@ -52,13 +53,21 @@ def shorten():
 def redirect_to_url(short_code):
     conn = get_db_connection()
     c = conn.cursor()
+
+    # find long_url for given short_code
     c.execute("SELECT long_url FROM urls WHERE short_code = ?", (short_code,))
     row = c.fetchone()
-    conn.close()
 
     if row:
+        # increment click counter
+        c.execute("UPDATE urls SET clicks = clicks + 1 WHERE short_code = ?", (short_code,))
+        conn.commit()
+        conn.close()
         return redirect(row[0])
+
+    conn.close()
     return {"error": "URL not found"}, 404
+
 
 if __name__ == "__main__":
     app.run(debug=True)     # run the main 2
