@@ -65,7 +65,7 @@ def shorten():
     conn.commit()
     conn.close()
 
-    return {"short_url": f"http://127.0.0.1:5000/{short_code}"}
+    return {"short_url": f"{request.host_url}{short_code}"}
 
 
 @app.route('/<short_code>')
