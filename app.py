@@ -17,54 +17,20 @@ def home():
 
 @app.route('/shorten', methods=['POST'])
 def shorten():
-    data = request.json
-    long_url = data.get('long_url')
-    custom_code = data.get('custom_code')  # optional custom short code
-
-    # validate URL
-    from urllib.parse import urlparse
-    parsed = urlparse(long_url)
-    if not (parsed.scheme and parsed.netloc):
-        return {"error": "Invalid URL. Please include http:// or https://"}, 400
-
+    long_url = request.json['long_url']
     conn = get_db_connection()
     c = conn.cursor()
 
-    # create table if not exists
-    c.execute("""
-    CREATE TABLE IF NOT EXISTS urls (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        short_code TEXT UNIQUE,
-        long_url TEXT NOT NULL,
-        clicks INTEGER DEFAULT 0
-    )
-    """)
-
-    # check if this URL already exists
-    c.execute("SELECT short_code FROM urls WHERE long_url = ?", (long_url,))
-    existing = c.fetchone()
-    if existing:
-        conn.close()
-        return {"short_url": f"http://127.0.0.1:5000/{existing['short_code']}"}
-
-    # if user provided custom code, use it (if not taken)
-    if custom_code:
-        c.execute("SELECT 1 FROM urls WHERE short_code = ?", (custom_code,))
-        if c.fetchone():
-            conn.close()
-            return {"error": "Custom code already taken. Please choose another."}, 400
-        short_code = custom_code
-    else:
-        # otherwise generate random 6-character short code
-        import string, random
-        chars = string.ascii_letters + string.digits
-        short_code = ''.join(random.choices(chars, k=6))
+    # generate random 6-character short code
+    chars = string.ascii_letters + string.digits
+    short_code = ''.join(random.choices(chars, k=6))
 
     # insert mapping into DB
     c.execute("INSERT INTO urls (short_code, long_url) VALUES (?, ?)", (short_code, long_url))
     conn.commit()
     conn.close()
 
+    # use dynamic host URL
     return {"short_url": f"{request.host_url}{short_code}"}
 
 
