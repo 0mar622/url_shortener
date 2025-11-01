@@ -15,7 +15,7 @@ A Python Flask application that generates and resolves shortened URLs. Designed 
 - Create simple frontend interface for link submission
 
 ## Tech Stack
-Python | Flask | SQLite | REST API | HTTP | JSON
+Python 3.12 | Flask | SQLite | REST API | HTTP | JSON
 
 ## Status
 In Progress – Core API endpoints functional; deployment and analytics in progress.
