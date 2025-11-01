@@ -1,24 +1,24 @@
 # URL Shortener Microservice
 
-A Python Flask application that generates and resolves shortened URLs. Designed to explore backend development, REST API design, and lightweight database integration. The service stores mappings between original and shortened URLs, returning redirect responses on access.
+A Python Flask application that generates and resolves shortened URLs. The service stores mappings between original and shortened URLs in a local SQLite database and tracks how many times each link is used. Designed to strengthen backend development skills, REST API design, and database integration.
 
 ## Current Features
 - Create and retrieve shortened URLs through RESTful endpoints
-- Redirect users to original URLs via unique short codes
-- Uses SQLite for persistent data storage
-- Basic input validation and error handling
+- Redirect users from short URL to original link
+- Persistent data storage using SQLite (`urls.db`)
+- Basic click counter for usage analytics
 
 ## Planned Features
+- Migrate database from SQLite to PostgreSQL for scalability
 - Add user accounts and authentication
-- Track click counts and timestamps for analytics
-- Deploy on Render or AWS Lambda
-- Create simple frontend interface for link submission
+- Deploy on Render or AWS Lambda for public access
+- Create simple web frontend for link submission and stats display
 
 ## Tech Stack
-Python 3.12 | Flask | SQLite | REST API | HTTP | JSON
+Python | Flask | SQLite | REST API | HTTP | JSON
 
 ## Status
-In Progress – Core API endpoints functional; deployment and analytics in progress.
+In Progress – Core API and database fully functional; migration and deployment planned.
 
 ## What I’m Learning
-Building RESTful APIs with Flask, integrating lightweight databases for persistence, and managing HTTP routing and redirect logic.
+Building RESTful APIs with Flask, integrating databases for persistence, managing HTTP redirects, and preparing applications for cloud deployment.
