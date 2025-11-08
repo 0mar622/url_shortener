@@ -1,24 +1,31 @@
 # URL Shortener Microservice
 
-A Python Flask application that generates and resolves shortened URLs. The service stores mappings between original and shortened URLs in a local SQLite database and tracks how many times each link is used. Designed to strengthen backend development skills, REST API design, and database integration.
+A Python Flask web application that generates shortened URLs and tracks click analytics. The service uses PostgreSQL for persistent storage and is deployed on Render for public access. Built to strengthen backend development, REST API design, database integration, and cloud deployment skills.
 
 ## Current Features
-- Create and retrieve shortened URLs through RESTful endpoints
-- Redirect users from short URL to original link
-- Persistent data storage using SQLite (`urls.db`)
-- Basic click counter for usage analytics
+- Create shortened URLs through RESTful POST endpoint (`/shorten`)
+- Redirect users from short URL to original link with automatic click tracking
+- Real-time analytics dashboard (`/stats`) showing click counts per URL
+- Persistent cloud storage using PostgreSQL
+- Production-ready deployment on Render with Gunicorn WSGI server
+- Business intelligence capabilities for link performance tracking
 
 ## Planned Features
-- Migrate database from SQLite to PostgreSQL for scalability
 - Add user accounts and authentication
-- Deploy on Render or AWS Lambda for public access
-- Create simple web frontend for link submission and stats display
-
+- Create web frontend for link submission and stats visualization (currently API-only)
+- Enhanced analytics (geographic data, referrer tracking, time-based trends)
+  
 ## Tech Stack
-Python | Flask | SQLite | REST API | HTTP | JSON
+Python | Flask | PostgreSQL | Gunicorn | Render | REST API | psycopg2 | HTTP | JSON
 
 ## Status
-In Progress – Core API and database fully functional; migration and deployment planned.
+In Progress – Core API fully functional and publicly accessible. Database migrated to PostgreSQL. Currently accessible via API endpoints (curl/Postman); web UI in development.
 
 ## What I’m Learning
-Building RESTful APIs with Flask, integrating databases for persistence, managing HTTP redirects, and preparing applications for cloud deployment.
+- Building RESTful APIs with Flask and handling different HTTP methods
+- Integrating PostgreSQL databases for persistent data storage
+- Managing HTTP redirects and tracking user interactions
+- Cloud deployment on Render with environment variables
+- Understanding production web architecture (Gunicorn vs Flask dev server)
+- Implementing basic business intelligence through click analytics
+- Request flow from browser through multiple server layers to database
