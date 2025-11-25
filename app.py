@@ -1,9 +1,11 @@
 from flask import Flask, request, redirect
+from flask_cors import CORS
 import os, psycopg2
 import string, random
 from urllib.parse import urlparse
 
 app = Flask(__name__)
+CORS(app)
 
 # Connect to Render’s PostgreSQL database using environment variable
 def get_db_connection():
