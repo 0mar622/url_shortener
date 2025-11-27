@@ -21,7 +21,7 @@ A Python Flask web application that generates shortened URLs and tracks click an
 Python | Flask | PostgreSQL | Gunicorn | Render | REST API | React | CORS | psycopg2 | HTTP | JSON
 
 ## Status
-✅ **Live and Functional** – Full-stack application deployed on Render with working React frontend and PostgreSQL backend. Publicly accessible at https://url-shortener-main.onrender.com
+✅ **Live and Functional** – Full-stack application deployed on Render with working React frontend and PostgreSQL backend.
 
 ## What I Learned
 * Building RESTful APIs with Flask and PostgreSQL integration
